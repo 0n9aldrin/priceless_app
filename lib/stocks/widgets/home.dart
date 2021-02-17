@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:priceless/prices/price_home.dart';
 import 'package:priceless/stocks/shared/colors.dart';
 import 'package:priceless/stocks/widgets/portfolio/portfolio.dart';
 
@@ -32,6 +33,59 @@ class _StockMarketAppHomeState extends State<StockMarketAppHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        drawer: Drawer(
+            // Add a ListView to the drawer. This ensures the user can scroll
+            // through the options in the drawer if there isn't enough vertical
+            // space to fit everything.
+            child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: Text('Drawer Header'),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+            ),
+            ListTile(
+              title: Text('Prices Comparison'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => PriceHome()));
+              },
+            ),
+            ListTile(
+              title: Text('Stock Market'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => StockMarketAppHome()));
+              },
+            ),
+            ListTile(
+              title: Text('Wishlist'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => StockMarketAppHome()));
+              },
+            ),
+          ],
+        )),
         backgroundColor: kScaffoldBackground,
         body: tabs.elementAt(_selectedIndex),
         bottomNavigationBar: SafeArea(

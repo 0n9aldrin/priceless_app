@@ -15,7 +15,9 @@ class PortfolioHeadingSection extends StatelessWidget {
       subtitle: formattedDate,
       action: GestureDetector(
           child: Icon(FontAwesomeIcons.user),
-          onTap: () => Navigator.pushNamed(context, '/about')),
+          onTap: () => Navigator.pushNamed(context, '/about')
+          // onTap: () => Scaffold.of(context).openDrawer(),
+          ),
     );
   }
 }
