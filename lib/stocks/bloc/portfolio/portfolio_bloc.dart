@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:priceless/database.dart';
 import 'package:priceless/stocks/helpers/sentry_helper.dart';
 import 'package:priceless/stocks/models/data_overview.dart';
 import 'package:priceless/stocks/models/profile/market_index.dart';
@@ -36,12 +37,14 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
 
     if (event is SaveProfile) {
       yield PortfolioLoading();
+      await bookmarkStock(model: event.storageModel);
       await this._databaseRepository.save(storageModel: event.storageModel);
       yield* _loadContent();
     }
 
     if (event is DeleteProfile) {
       yield PortfolioLoading();
+      await deleteStock(symbol: event.symbol);
       await this._databaseRepository.delete(symbol: event.symbol);
       yield* _loadContent();
     }
@@ -49,10 +52,12 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
 
   Stream<PortfolioState> _loadContent() async* {
     try {
-      final symbolsStored = await _databaseRepository.fetch();
+      // final symbolsStored = await _databaseRepository.fetch();
+      final symbolsStored = await fetchStock() ?? [];
       final indexes = await _repository.fetchIndexes();
 
       if (symbolsStored.isNotEmpty) {
+        // await fetchStock();
         final stocks = await Future.wait(symbolsStored.map((symbol) async =>
             await _repository.fetchStocks(symbol: symbol.symbol)));
 
@@ -61,9 +66,8 @@ class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
         yield PortfolioStockEmpty(indexes: indexes);
       }
     } catch (e, stack) {
-      yield PortfolioError(
-          message: 'There was an unkwon error. Please try again later.');
-      await SentryHelper(exception: e, stackTrace: stack).report();
+      yield PortfolioError(message: '${e.toString()}');
+      // await SentryHelper(exception: e, stackTrace: stack).report();
     }
   }
 }

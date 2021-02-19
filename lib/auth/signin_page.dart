@@ -6,6 +6,8 @@ import 'package:priceless/auth/register_page.dart';
 import 'package:priceless/auth/toast.dart';
 import 'package:priceless/index.dart';
 
+import '../main.dart';
+
 class SignInPage extends StatefulWidget {
   @override
   _SignInPageState createState() => _SignInPageState();
@@ -57,6 +59,7 @@ class _SignInPageState extends State<SignInPage> {
       });
       await _verify();
       showSuccessToast("You've Signed In", context);
+      UID = userCredential.user.uid;
       Navigator.push(context, MaterialPageRoute(builder: (context) => Index()));
     } on FirebaseAuthException catch (e) {
       setState(() {
@@ -96,22 +99,19 @@ class _SignInPageState extends State<SignInPage> {
     User user = FirebaseAuth.instance.currentUser;
     user.reload();
     if (user.emailVerified) {
+      UID = user.uid;
       Navigator.push(context, MaterialPageRoute(builder: (context) => Index()));
     } else {
       showErrorToast("Email not yet verified", context);
     }
   }
 
-  Future<void> _handleSignOut() {
-    _googleSignIn.disconnect();
-    setState(() {
-      _isSignedIn = false;
-    });
-    showSuccessToast("You've Signed Out", context);
-  }
-
-  // _submit() async {
-  //   await _signIn();
+  // Future<void> _handleSignOut() {
+  //   _googleSignIn.disconnect();
+  //   setState(() {
+  //     _isSignedIn = false;
+  //   });
+  //   showSuccessToast("You've Signed Out", context);
   // }
 
   Future<void> _handleSignIn() async {
@@ -120,6 +120,7 @@ class _SignInPageState extends State<SignInPage> {
       setState(() {
         _isSignedIn = true;
       });
+      UID = _account.id;
       showSuccessToast("You've Signed In", context);
       Navigator.push(context, MaterialPageRoute(builder: (context) => Index()));
     } catch (error) {
