@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:priceless/colors.dart';
 import 'package:priceless/stocks/helpers/url/url.dart';
 import 'package:priceless/stocks/models/news/single_new_model.dart';
 import 'package:priceless/stocks/shared/styles.dart';
@@ -52,7 +53,7 @@ class NewsCardWidget extends StatelessWidget {
                     height: 1.6,
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
-                    color: Color(0XFFc2c2c2)),
+                    color: Color(0xff808080).withAlpha(200)),
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
               ),

@@ -4,6 +4,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:priceless/auth/forgot_password.dart';
 import 'package:priceless/auth/toast.dart';
 import 'package:priceless/index.dart';
+import 'package:priceless/stocks/widgets/home.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -87,7 +88,8 @@ class _RegisterPageState extends State<RegisterPage> {
     User user = FirebaseAuth.instance.currentUser;
     user.reload();
     if (user.emailVerified) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Index()));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => StockMarketAppHome()));
     } else {
       showErrorToast("Email not yet verified", context);
     }

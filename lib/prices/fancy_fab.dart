@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:priceless/stocks/widgets/home.dart';
 
 class FancyFab extends StatefulWidget {
   final Function() onPressedPrice;
@@ -94,17 +95,17 @@ class _FancyFabState extends State<FancyFab>
     );
   }
 
-  Widget inbox() {
-    return Container(
-      child: FloatingActionButton.extended(
-        heroTag: null,
-        onPressed: null,
-        tooltip: 'Rating',
-        label: Text('Rating'),
-        icon: Icon(Icons.star),
-      ),
-    );
-  }
+  // Widget inbox() {
+  //   return Container(
+  //     child: FloatingActionButton.extended(
+  //       heroTag: null,
+  //       onPressed: null,
+  //       tooltip: 'Rating',
+  //       label: Text('Rating'),
+  //       icon: Icon(Icons.star),
+  //     ),
+  //   );
+  // }
 
   Widget toggle() {
     return Container(
@@ -118,6 +119,20 @@ class _FancyFabState extends State<FancyFab>
           icon: AnimatedIcons.menu_close,
           progress: _animateIcon,
         ),
+      ),
+    );
+  }
+
+  cow() {
+    return Container(
+      child: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => StockMarketAppHome()));
+        },
+        label: Text('Stocks'),
+        icon: Icon(Icons.bookmark),
+        backgroundColor: Colors.pink,
       ),
     );
   }
@@ -149,8 +164,16 @@ class _FancyFabState extends State<FancyFab>
             _translateButton.value,
             0.0,
           ),
-          child: inbox(),
+          child: cow(),
         ),
+        // Transform(
+        //   transform: Matrix4.translationValues(
+        //     0.0,
+        //     _translateButton.value * 2.0,
+        //     0.0,
+        //   ),
+        //   child: cow(),
+        // ),
         toggle(),
       ],
     );

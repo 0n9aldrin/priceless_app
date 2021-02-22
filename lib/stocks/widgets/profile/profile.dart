@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:priceless/colors.dart';
 import 'package:priceless/stocks/bloc/profile/profile_bloc.dart';
 import 'package:priceless/stocks/helpers/color/color_helper.dart';
 import 'package:priceless/stocks/shared/colors.dart';
@@ -32,7 +33,7 @@ class Profile extends StatelessWidget {
               backgroundColor: kNegativeColor,
               title: Text(':('),
             ),
-            backgroundColor: kScaffoldBackground,
+            backgroundColor: APP_WHITE,
             body: Center(child: EmptyScreen(message: state.error)));
       }
 
@@ -45,7 +46,7 @@ class Profile extends StatelessWidget {
       }
 
       return Scaffold(
-          backgroundColor: kScaffoldBackground, body: LoadingIndicatorWidget());
+          backgroundColor: APP_WHITE, body: LoadingIndicatorWidget());
     });
   }
 }

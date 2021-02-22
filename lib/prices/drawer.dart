@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:priceless/auth/signin_page.dart';
 
 class DrawerScreen extends StatefulWidget {
   @override
@@ -6,6 +9,11 @@ class DrawerScreen extends StatefulWidget {
 }
 
 class _DrawerScreenState extends State<DrawerScreen> {
+  GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email',
+    ],
+  );
   @override
   Widget build(BuildContext context) {
     List<Map> drawerItems = [
@@ -93,10 +101,18 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 SizedBox(
                   width: 10,
                 ),
-                Text(
-                  'Log out',
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
+                GestureDetector(
+                  onTap: () async {
+                    await FirebaseAuth.instance.signOut();
+                    await _googleSignIn.disconnect();
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => SignInPage()));
+                  },
+                  child: Text(
+                    'Log out',
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
                 )
               ],
             )

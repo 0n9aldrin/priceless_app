@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // _createFolder("Cow Test");
     return MaterialApp(
-      theme: ThemeData(brightness: Brightness.dark),
+      // theme: ThemeData(brightness: Brightness.dark),
       home: SignInPage(),
       routes: {'/about': (context) => AboutSection()},
     );

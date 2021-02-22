@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:priceless/colors.dart';
 import 'package:priceless/stocks/bloc/profile/profile_bloc.dart';
 import 'package:priceless/stocks/helpers/color/color_helper.dart';
 import 'package:priceless/stocks/helpers/text/text_helper.dart';
@@ -24,7 +25,7 @@ class PortfolioStockCard extends StatelessWidget {
   PortfolioStockCard({@required this.data});
 
   static const _kCompanyNameStyle =
-      const TextStyle(color: Color(0XFFc2c2c2), fontSize: 13, height: 1.5);
+      const TextStyle(color: APP_BLUE, fontSize: 13, height: 1.5);
 
   static const _kStockTickerSymbol =
       const TextStyle(fontSize: 16, fontWeight: FontWeight.bold);
@@ -36,7 +37,7 @@ class PortfolioStockCard extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 6),
       child: MaterialButton(
-        color: kTileColor,
+        color: REAL_WHITE.withAlpha(30).withOpacity(0.7),
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 16),
           child: Row(

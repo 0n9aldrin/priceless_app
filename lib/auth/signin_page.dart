@@ -5,6 +5,7 @@ import 'package:priceless/auth/forgot_password.dart';
 import 'package:priceless/auth/register_page.dart';
 import 'package:priceless/auth/toast.dart';
 import 'package:priceless/index.dart';
+import 'package:priceless/stocks/widgets/home.dart';
 
 import '../main.dart';
 
@@ -60,7 +61,8 @@ class _SignInPageState extends State<SignInPage> {
       await _verify();
       showSuccessToast("You've Signed In", context);
       UID = userCredential.user.uid;
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Index()));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => StockMarketAppHome()));
     } on FirebaseAuthException catch (e) {
       setState(() {
         _isSignedIn = false;
@@ -100,7 +102,8 @@ class _SignInPageState extends State<SignInPage> {
     user.reload();
     if (user.emailVerified) {
       UID = user.uid;
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Index()));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => StockMarketAppHome()));
     } else {
       showErrorToast("Email not yet verified", context);
     }
@@ -122,7 +125,8 @@ class _SignInPageState extends State<SignInPage> {
       });
       UID = _account.id;
       showSuccessToast("You've Signed In", context);
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Index()));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => StockMarketAppHome()));
     } catch (error) {
       // print(error);
       showErrorToast("Problem signing in", context);

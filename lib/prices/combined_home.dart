@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:priceless/stocks/widgets/home.dart';
 import 'drawer.dart';
 import 'home_page.dart';
 

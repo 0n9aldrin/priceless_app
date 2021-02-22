@@ -61,6 +61,7 @@ dependencies:
   # SOCIAL LOGIN
   google_sign_in: "^4.5.1"
   permission_handler: ^5.1.0+2
+  
 
 dev_dependencies:
   flutter_test:

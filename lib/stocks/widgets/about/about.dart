@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:priceless/colors.dart';
 import 'package:priceless/stocks/shared/colors.dart';
 import 'package:priceless/stocks/widgets/about/attributions/attributions.dart';
 import 'package:priceless/stocks/widgets/widgets/empty_screen.dart';
@@ -29,7 +30,7 @@ class AboutSection extends StatelessWidget {
               ],
             ),
           ),
-          backgroundColor: kScaffoldBackground,
+          backgroundColor: APP_WHITE,
           body: SafeArea(
             child: TabBarView(
               children: <Widget>[

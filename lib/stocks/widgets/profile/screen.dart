@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:priceless/colors.dart';
 import 'package:priceless/stocks/models/profile/profile.dart';
 import 'package:priceless/stocks/models/storage/storage.dart';
 import 'package:priceless/stocks/shared/colors.dart';
@@ -44,7 +45,7 @@ class ProfileScreen extends StatelessWidget {
             )
           ],
         ),
-        backgroundColor: kScaffoldBackground,
+        backgroundColor: APP_WHITE,
         body: SafeArea(
           child: Profile(
             color: color,

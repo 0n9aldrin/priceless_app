@@ -16,7 +16,7 @@ class PortfolioHeadingSection extends StatelessWidget {
       action: GestureDetector(
           child: Icon(FontAwesomeIcons.user),
           onTap: () => Navigator.pushNamed(context, '/about')
-          // onTap: () => Scaffold.of(context).openDrawer(),
+          // onTap: () => ZoomDrawer.of(context).open(),
           ),
     );
   }

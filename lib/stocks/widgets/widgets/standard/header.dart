@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:priceless/colors.dart';
 
 class StandardHeader extends StatelessWidget {
   final String title;
@@ -8,11 +9,13 @@ class StandardHeader extends StatelessWidget {
   StandardHeader(
       {@required this.title, @required this.subtitle, @required this.action});
 
-  static const kPortfolioHeaderTitle =
-      const TextStyle(fontSize: 28, fontWeight: FontWeight.bold);
+  var kPortfolioHeaderTitle =
+      TextStyle(fontSize: 28, fontWeight: FontWeight.bold);
 
-  static const kPortfolioSubtitle = const TextStyle(
-      color: Colors.white54, fontSize: 24, fontWeight: FontWeight.w800);
+  var kPortfolioSubtitle = TextStyle(
+      color: REAL_BLACK.withAlpha(90),
+      fontSize: 24,
+      fontWeight: FontWeight.w800);
 
   @override
   Widget build(BuildContext context) {
