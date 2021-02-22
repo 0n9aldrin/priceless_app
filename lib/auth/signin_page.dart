@@ -54,15 +54,22 @@ class _SignInPageState extends State<SignInPage> {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-      setState(() {
-        _isSignedIn = true;
-        // user = FirebaseAuth.instance.currentUser;
-      });
-      await _verify();
-      showSuccessToast("You've Signed In", context);
-      UID = userCredential.user.uid;
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => StockMarketAppHome()));
+
+      bool cow = await _verify();
+      if (cow) {
+        setState(() {
+          _isSignedIn = true;
+          // user = FirebaseAuth.instance.currentUser;
+        });
+        showSuccessToast("You've Signed In", context);
+        UID = userCredential.user.uid;
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => StockMarketAppHome()));
+      } else {
+        setState(() {
+          _isSignedIn = false;
+        });
+      }
     } on FirebaseAuthException catch (e) {
       setState(() {
         _isSignedIn = false;
@@ -81,7 +88,7 @@ class _SignInPageState extends State<SignInPage> {
     User user = FirebaseAuth.instance.currentUser;
     user.reload();
     if (user.emailVerified) {
-      return;
+      return true;
     }
     try {
       await user.sendEmailVerification();
@@ -89,7 +96,7 @@ class _SignInPageState extends State<SignInPage> {
       setState(() {
         _verified = true;
       });
-      // return user.uid;
+      return false;
     } catch (e) {
       // print("An error occured while trying to send email        verification");
       print(e.message);

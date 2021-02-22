@@ -39,6 +39,7 @@ class Profile extends StatelessWidget {
 
       if (state is ProfileLoaded) {
         return ProfileScreen(
+            symbol: symbol,
             isSaved: state.isSymbolSaved,
             profile: state.profileModel,
             color: determineColorBasedOnChange(

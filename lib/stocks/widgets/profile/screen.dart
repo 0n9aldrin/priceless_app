@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:priceless/auth/toast.dart';
 import 'package:priceless/colors.dart';
+import 'package:priceless/lab.dart';
 import 'package:priceless/stocks/models/profile/profile.dart';
 import 'package:priceless/stocks/models/storage/storage.dart';
 import 'package:priceless/stocks/shared/colors.dart';
@@ -17,16 +19,29 @@ class ProfileScreen extends StatelessWidget {
   final bool isSaved;
   final Color color;
   final ProfileModel profile;
+  final String symbol;
 
-  ProfileScreen({
-    @required this.isSaved,
-    @required this.profile,
-    @required this.color,
-  });
+  ProfileScreen(
+      {@required this.isSaved,
+      @required this.profile,
+      @required this.color,
+      @required this.symbol});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        floatingActionButton: FloatingActionButton(
+            child: Text(
+              'predict',
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+            onPressed: () async {
+              double cow = await fetchStockHistory(symbol: symbol);
+              print(cow);
+              showSuccessToast("Prediction: $cow", context);
+            }),
         appBar: AppBar(
           backgroundColor: color,
           centerTitle: true,

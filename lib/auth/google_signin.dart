@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:priceless/auth/signin_page.dart';
+import 'package:priceless/lab.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: SignInPage(),
+      home: Home(),
     );
   }
 }
@@ -65,11 +66,15 @@ class _HomeState extends State<Home> {
           children: <Widget>[
             Text(!_isSignedIn ? "Hello World" : "${_account.displayName}"),
             RaisedButton(
-                child: Icon(!_isSignedIn
-                    ? Icons.access_alarm
-                    : Icons.check_circle_outline),
-                onPressed: () =>
-                    !_isSignedIn ? _handleSignIn() : _handleSignOut())
+              child: Icon(!_isSignedIn
+                  ? Icons.access_alarm
+                  : Icons.check_circle_outline),
+              onPressed: () async {
+                await fetchStockHistory(symbol: 'AAPL');
+              },
+              // onPressed: () =>
+              //  /   !_isSignedIn ? _handleSignIn() : _handleSignOut()
+            )
           ],
         ),
       ),
