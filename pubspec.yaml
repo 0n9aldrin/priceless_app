@@ -62,7 +62,8 @@ dependencies:
   google_sign_in: "^4.5.1"
   permission_handler: ^5.1.0+2
   # starflut: ^0.6.0
-  # tflite: ^1.1.1
+  tflite: ^1.1.1
+  shared_preferences: 
 
 dev_dependencies:
   flutter_test:

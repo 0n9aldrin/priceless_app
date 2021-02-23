@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:priceless/auth/google_signin.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'auth/signin_page.dart';
 import 'index.dart';
@@ -19,6 +20,7 @@ import 'stocks/widgets/home.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await _dee();
 
   runApp(MultiBlocProvider(
     providers: [
@@ -51,14 +53,29 @@ void main() async {
 }
 
 String UID;
+List CULTURE = [];
+String SIGNAL = '';
+bool isSignedIn = false;
+
+_dee() async {
+  final prefs = await SharedPreferences.getInstance();
+  final counter = prefs.getString('uid') ?? '';
+  if (counter.isEmpty || counter == null) {
+    isSignedIn = false;
+  } else {
+    isSignedIn = true;
+    UID = counter;
+  }
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // _createFolder("Cow Test");
+    // _dee();
     return MaterialApp(
       // theme: ThemeData(brightness: Brightness.dark),
-      home: SignInPage(),
+      home: isSignedIn ? StockMarketAppHome() : SignInPage(),
       routes: {'/about': (context) => AboutSection()},
     );
   }

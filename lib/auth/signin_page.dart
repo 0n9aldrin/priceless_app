@@ -6,6 +6,7 @@ import 'package:priceless/auth/register_page.dart';
 import 'package:priceless/auth/toast.dart';
 import 'package:priceless/index.dart';
 import 'package:priceless/stocks/widgets/home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../main.dart';
 
@@ -20,7 +21,7 @@ class _SignInPageState extends State<SignInPage> {
   final Color APP_GREY = Color(0xffADAB9F);
   final Color LIGHT_GREY = Color(0xffD3D2C5);
 
-  bool _isSignedIn = false;
+  // bool isSignedIn = false;
   GoogleSignIn _googleSignIn = GoogleSignIn(
     scopes: [
       'email',
@@ -44,6 +45,7 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   _signIn() async {
+    final prefs = await SharedPreferences.getInstance();
     String email = _emailcontroller.text;
     String password = _passwordcontroller.text;
     _emailcontroller.clear();
@@ -58,21 +60,22 @@ class _SignInPageState extends State<SignInPage> {
       bool cow = await _verify();
       if (cow) {
         setState(() {
-          _isSignedIn = true;
+          isSignedIn = true;
           // user = FirebaseAuth.instance.currentUser;
         });
         showSuccessToast("You've Signed In", context);
         UID = userCredential.user.uid;
+        prefs.setString('uid', UID);
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => StockMarketAppHome()));
       } else {
         setState(() {
-          _isSignedIn = false;
+          isSignedIn = false;
         });
       }
     } on FirebaseAuthException catch (e) {
       setState(() {
-        _isSignedIn = false;
+        isSignedIn = false;
       });
       // print(e.toString());
       showErrorToast(e.toString(), context);
@@ -125,12 +128,14 @@ class _SignInPageState extends State<SignInPage> {
   // }
 
   Future<void> _handleSignIn() async {
+    final prefs = await SharedPreferences.getInstance();
     try {
       _account = await _googleSignIn.signIn();
       setState(() {
-        _isSignedIn = true;
+        isSignedIn = true;
       });
       UID = _account.id;
+      prefs.setString('uid', UID);
       showSuccessToast("You've Signed In", context);
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => StockMarketAppHome()));
@@ -138,7 +143,7 @@ class _SignInPageState extends State<SignInPage> {
       // print(error);
       showErrorToast("Problem signing in", context);
       setState(() {
-        _isSignedIn = false;
+        isSignedIn = false;
       });
     }
   }

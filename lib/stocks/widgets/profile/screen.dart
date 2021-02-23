@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:priceless/auth/toast.dart';
 import 'package:priceless/colors.dart';
+import 'package:priceless/cow/time_series_chart/simple.dart';
 import 'package:priceless/lab.dart';
+import 'package:priceless/lab3.dart';
+import 'package:priceless/main.dart';
 import 'package:priceless/stocks/models/profile/profile.dart';
 import 'package:priceless/stocks/models/storage/storage.dart';
 import 'package:priceless/stocks/shared/colors.dart';
@@ -15,7 +18,7 @@ import 'widgets/widget/save_button.dart';
 // import 'package:sma/widgets/profile/widgets/profile/profile.dart';
 // import 'package:sma/widgets/profile/widgets/widget/save_button.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   final bool isSaved;
   final Color color;
   final ProfileModel profile;
@@ -28,24 +31,38 @@ class ProfileScreen extends StatelessWidget {
       @required this.symbol});
 
   @override
+  _ProfileScreenState createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         floatingActionButton: FloatingActionButton(
-            child: Text(
-              'predict',
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
+            child: Icon(Icons.show_chart),
             onPressed: () async {
-              double cow = await fetchStockHistory(symbol: symbol);
-              print(cow);
-              showSuccessToast("Prediction: $cow", context);
+              List cow = await fetchStockHistory(symbol: widget.symbol);
+              print(cow.length);
+              if (cow == null || cow.length == 0) {
+                showErrorToast(
+                    "Prediction for ${widget.symbol} is unavailable, Try again",
+                    context);
+                return;
+              }
+              setState(() {
+                CULTURE = cow;
+                SIGNAL = widget.symbol;
+              });
+              // showSuccessToast("Prediction: ${cow.toString()}", context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => PredictPage(color: widget.color)));
             }),
         appBar: AppBar(
-          backgroundColor: color,
+          backgroundColor: widget.color,
           centerTitle: true,
-          title: Text(this.profile.stockQuote.symbol),
+          title: Text(this.widget.profile.stockQuote.symbol),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () => Navigator.of(context).pop(),
@@ -53,9 +70,9 @@ class ProfileScreen extends StatelessWidget {
           actions: <Widget>[
             WatchlistButtonWidget(
               storageModel: StorageModel(
-                  symbol: profile.stockQuote.symbol,
-                  companyName: profile.stockQuote.name),
-              isSaved: isSaved,
+                  symbol: widget.profile.stockQuote.symbol,
+                  companyName: widget.profile.stockQuote.name),
+              isSaved: widget.isSaved,
               color: Colors.white,
             )
           ],
@@ -63,10 +80,10 @@ class ProfileScreen extends StatelessWidget {
         backgroundColor: APP_WHITE,
         body: SafeArea(
           child: Profile(
-            color: color,
-            stockProfile: profile.stockProfile,
-            stockChart: profile.stockChart,
-            stockQuote: profile.stockQuote,
+            color: widget.color,
+            stockProfile: widget.profile.stockProfile,
+            stockChart: widget.profile.stockChart,
+            stockQuote: widget.profile.stockQuote,
           ),
           // ProfileNewsScreen(news: profile.stockNews,),
         ));

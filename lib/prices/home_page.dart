@@ -125,28 +125,33 @@ class _MyHomePageState extends State<MyHomePage>
             appBar: AppBar(
               backgroundColor:
                   Provider.of<ColorChange>(context).getColor(controller.index),
-              leading: isDrawerOpen
-                  ? IconButton(
-                      icon: Icon(Icons.arrow_back_ios),
-                      onPressed: () {
-                        setState(() {
-                          xOffset = 0;
-                          yOffset = 0;
-                          scaleFactor = 1;
-                          isDrawerOpen = false;
-                        });
-                      },
-                    )
-                  : IconButton(
-                      icon: Icon(Icons.menu),
-                      onPressed: () {
-                        setState(() {
-                          xOffset = 230;
-                          yOffset = 150;
-                          scaleFactor = 0.6;
-                          isDrawerOpen = true;
-                        });
-                      }),
+              leading: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Icon(Icons.arrow_back_ios)),
+              // leading: isDrawerOpen
+              // /    ? IconButton(
+              //         icon: Icon(Icons.arrow_back_ios),
+              //         onPressed: () {
+              //           setState(() {
+              //             xOffset = 0;
+              //             yOffset = 0;
+              //             scaleFactor = 1;
+              //             isDrawerOpen = false;
+              //           });
+              //         },
+              //       )
+              //     : IconButton(
+              //         icon: Icon(Icons.menu),
+              //         onPressed: () {
+              //           setState(() {
+              //             xOffset = 230;
+              //             yOffset = 150;
+              //             scaleFactor = 0.6;
+              //             isDrawerOpen = true;
+              //           });
+              //         }),
               actions: <Widget>[
                 IconButton(
                   tooltip: 'Search',
