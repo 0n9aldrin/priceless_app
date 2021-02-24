@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:priceless/auth/toast.dart';
 import 'package:priceless/colors.dart';
-import 'package:priceless/cow/time_series_chart/simple.dart';
-import 'package:priceless/lab.dart';
-import 'package:priceless/lab3.dart';
+import 'package:priceless/graphs/time_series_chart/simple.dart';
+import 'package:priceless/stockhistory.dart';
+import 'package:priceless/predict_page.dart';
 import 'package:priceless/main.dart';
 import 'package:priceless/stocks/models/profile/profile.dart';
 import 'package:priceless/stocks/models/storage/storage.dart';

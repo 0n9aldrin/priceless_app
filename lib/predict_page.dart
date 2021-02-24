@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'chart.dart';
-import 'cow/time_series_chart/simple.dart';
+import 'graphs/time_series_chart/simple.dart';
 import 'main.dart';
 import 'stocks/models/profile/stock_chart.dart';
 import 'stocks/models/profile/stock_profile.dart';

@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:priceless/auth/signin_page.dart';
-import 'package:priceless/lab.dart';
+import 'package:priceless/stockhistory.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
